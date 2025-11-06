@@ -24,7 +24,8 @@ function PizzakPage() {
           <img src={`${BACKEND_URL}/kepek/${p.imageUrl}`} width={300} /> <br />
           {p.ar} Ft <br />
           {p.leiras} <br />
-          <Link to={`/pizzamodify/${p.id}`}><button>Pizza szerkesztése</button></Link>
+          <Link to={`/pizzamodify/${p.id}`}><button>Pizza szerkesztése</button></Link> <br />
+          <Link to={`/pizzadelete/${p.id}`}><button>Pizza törlése</button></Link>
         </p>
       ))}
     </>
