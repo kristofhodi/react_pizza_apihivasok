@@ -1,13 +1,14 @@
 import { useState } from "react";
 import type { Pizza } from "../types/Pizza";
+import { Link, useParams } from "react-router";
 import apiClient from "../api/apiClient";
-import { Link } from "react-router";
 
-function CreatePizza() {
+function ModifyPizza() {
   const [nev, setNev] = useState<string>("");
   const [ar, setAr] = useState<number>(0);
   const [leiras, setLeiras] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
+  const { id } = useParams();
 
   const pizza: Pizza = {
     nev,
@@ -16,25 +17,24 @@ function CreatePizza() {
     ar,
   };
 
-  const kuldes = () => {
+  const modositas = () => {
     apiClient
-    .post("/pizzak", pizza)
-    .then((response) => {
-      switch (response.status) {
-        case 201:
-          console.log("Pizza created successfully");
-          break;
-        case 400:
-          console.error("Bad request");
-          break;
-        default:
-          console.error("An error occurred");
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  }
+      .put(`/pizzak/${id}`, pizza)
+      .then((response) => {
+        switch (response.status) {
+          case 200:
+            console.log("Pizza successfully updated");
+            break;
+          case 400:
+            console.log("Bad request");
+            break;
+          default:
+            console.log("error");
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <>
       <p>
@@ -59,10 +59,12 @@ function CreatePizza() {
           onChange={(e) => setImageUrl(e.target.value)}
         />
       </p>
-      <button onClick={kuldes}>Pizza hozzáadása</button>
-      <Link to={`/pizzak`}><button>Vissza a főoldalra</button></Link>
+      <button onClick={modositas}>Pizza módosítása</button>
+      <Link to={`/pizzak`}>
+        <button>Vissza a főoldalra</button>
+      </Link>
     </>
   );
 }
 
-export default CreatePizza;
+export default ModifyPizza;

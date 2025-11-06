@@ -15,11 +15,16 @@ function PizzakPage() {
 
   return (
     <>
-    <Link to={`/pizzacreate`}><button>Uj pizza</button></Link>
+      <Link to={`/pizzacreate`}>
+        <button>Uj pizza</button>
+      </Link>
       {pizzak.map((p) => (
         <p>
-          {p.nev}
-          <img src={`${BACKEND_URL}/kepek/${p.imageUrl}`} width={300} />
+          <Link to={`/pizzak/${p.id}`}>{p.nev}</Link> <br/>
+          <img src={`${BACKEND_URL}/kepek/${p.imageUrl}`} width={300} /> <br />
+          {p.ar} Ft <br />
+          {p.leiras} <br />
+          <Link to={`/pizzamodify/${p.id}`}><button>Pizza szerkesztése</button></Link>
         </p>
       ))}
     </>
